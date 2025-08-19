@@ -1,0 +1,50 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background: #f9f9f9;
+}
+
+.tabla-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+th, td {
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+}
+
+th {
+  background: #eaeaea;
+  font-weight: bold;
+}
+
+.toggle {
+  cursor: pointer;
+  font-weight: bold;
+  margin-right: 6px;
+  color: #007BFF;
+}
+
+.indent { padding-left: 20px; }
+.indent-2 { padding-left: 40px; }
+.indent-3 { padding-left: 60px; }
+.indent-4 { padding-left: 80px; }
+
+.subgrupo, .detalle {
+  display: none; /* Ocultos por defecto */
+}
+
+.total {
+  font-weight: bold;
+  background: #f1f1f1;
+}
