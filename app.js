@@ -58,7 +58,7 @@ function isToday(y, m, d){
 
 /* Render: Vista Año */
 function renderYear(){
-  appTitle.textContent = 'Calendario';
+  appTitle.textContent = 'Año';
   backBtn.hidden = true;
   yearLabel.textContent = state.year;
   monthsGrid.innerHTML = '';
@@ -103,7 +103,7 @@ function renderYear(){
 
 /* Render: Vista Mes */
 function renderMonth(){
-  appTitle.textContent = monthNames[state.month];
+  appTitle.textContent = 'Mes';
   backBtn.hidden = false;
 
   monthLabel.textContent = `${capitalize(monthNames[state.month])} ${state.year}`;
@@ -230,7 +230,7 @@ backBtn.addEventListener('click', () => {
   } else if(monthView.classList.contains('active')){
     renderYear();
     navigate(monthView, yearView, 'back');
-    appTitle.textContent = 'Calendario';
+    appTitle.textContent = 'Año';
   }
 });
 
@@ -280,7 +280,7 @@ function renderDay(){
   addBtn.className = 'today-btn';
   addBtn.style.marginBottom = "12px";
   addBtn.onclick = () => {
-    tasks.push({ title: 'Nueva tarea', time: '', empresa: '', participantes: '', programado: '' });
+    tasks.push({ title: '', time: '', empresa: '', participantes: '', programado: '' });
     sampleTasks[key] = tasks;
     renderDay();
   };
@@ -323,7 +323,7 @@ function renderDay(){
   const details = document.createElement('div');
   details.className = 'task-details';
   details.innerHTML = `
-    <input type="text" placeholder="Título" value="${t.title}">
+    <input type="text" placeholder="TITULO..." value="${t.title}">
     <input type="text" placeholder="Empresa" value="${t.empresa || ''}">
     <input type="text" placeholder="Participantes" value="${t.participantes || ''}">
     <input type="time" placeholder="Hora" value="${t.time || ''}">
@@ -352,6 +352,18 @@ function renderDay(){
     t.programado = inputs[4].value;
     renderDay();
   };
+  
+  const inputs = details.querySelectorAll('input');
+inputs.forEach((input, idx) => {
+  input.addEventListener('keydown', e => {
+    if(e.key === 'Enter'){
+      e.preventDefault();
+      const next = inputs[idx + 1];
+      if(next) next.focus();
+      else details.querySelector('.save-btn').focus(); // al final, enfocar Guardar
+    }
+  });
+});
 
   // Eliminar tarea
   const deleteBtn = details.querySelector('.delete-btn');
