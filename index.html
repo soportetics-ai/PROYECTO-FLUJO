@@ -1,241 +1,78 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reporte Financiero</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Calendario — Demo</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="tabla-container">
-    <table>
-      <thead>
-        <tr>
-          <th>Concepto</th>
-          <th>Producción</th>
-          <th>Debe</th>
-          <th>Haber</th>
-          <th>Utilidad</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- INGRESOS -->
-        <tr class="grupo" data-group="zona-oro">
-          <td><span class="toggle">+</span> INGRESOS</td>
-          <td></td><td></td><td></td><td></td>
-        </tr>
+  <!-- Barra superior estilo iOS -->
+  <header class="app-bar">
+    <button id="backBtn" class="back-btn" aria-label="Atrás" hidden>
+      <span class="chev">‹</span> Atrás
+    </button>
+    <h1 id="appTitle" class="title">Calendario</h1>
+    <div class="spacer"></div>
+  </header>
 
-        <!-- ZONA EL ORO -->
-        <tr class="subgrupo zona-oro" data-group="fruta">
-          <td class="indent"><span class="toggle">+</span> ZONA EL ORO</td>
-          <td></td><td></td><td></td><td></td>
-        </tr>
+  <!-- Contenedor de vistas apiladas -->
+  <main id="views">
+    <!-- Vista: AÑO -->
+    <section id="yearView" class="view active" aria-label="Vista anual">
+      <div class="year-header">
+        <button id="prevYear" class="nav-btn" aria-label="Año anterior">‹</button>
+        <h2 id="yearLabel"></h2>
+        <button id="nextYear" class="nav-btn" aria-label="Año siguiente">›</button>
+      </div>
+      <div id="monthsGrid" class="months-grid"></div>
+    </section>
 
-        <!-- FRUTA -->
-        <tr class="subgrupo fruta" data-group="banano">
-          <td class="indent-2"><span class="toggle">+</span> FRUTA</td>
-          <td></td><td></td><td></td><td></td>
-        </tr>
+    <!-- Vista: MES -->
+    <section id="monthView" class="view" aria-label="Vista mensual">
+      <div class="month-header">
+        <button id="prevMonth" class="nav-btn" aria-label="Mes anterior">‹</button>
+        <h2 id="monthLabel"></h2>
+        <button id="nextMonth" class="nav-btn" aria-label="Mes siguiente">›</button>
+      </div>
+      <div class="weekdays">
+        <span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span>Sáb</span><span>Dom</span>
+      </div>
+      <div id="daysGrid" class="days-grid"></div>
+    </section>
 
-        <!-- BANANO -->
-        <tr class="subgrupo banano" data-group="banano-detalle">
-          <td class="indent-3"><span class="toggle">+</span> BANANO</td>
-          <td></td><td></td><td></td><td></td>
-        </tr>
+    <!-- Vista: DÍA -->
+    <section id="dayView" class="view" aria-label="Vista diaria">
+      <div class="day-header">
+        <h2 id="dayLabel"></h2>
+      </div>
+      <ul id="tasksList" class="tasks-list">
+        <!-- Ejemplo de tarea expandible -->
+        <li class="task-item">
+          <div class="task-main">
+            <span class="task-time">08:00</span>
+            <span class="task-title">Reunión</span>
+            <button class="task-expand">+</button>
+          </div>
+          <div class="task-details">
+            <input type="text" placeholder="Empresa">
+            <input type="text" placeholder="Participantes">
+            <input type="text" placeholder="Programado para">
+            <div style="display:flex; gap:6px;">
+              <button class="save-btn">Guardar</button>
+              <button class="delete-btn">Eliminar</button>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </section>
+  </main>
 
-        <!-- Detalles BANANO -->
-        <tr class="detalle banano-detalle">
-          <td class="indent-4">MARIA</td>
-          <td>315,371</td>
-          <td>$ 2,387,937.17</td>
-          <td></td><td></td>
-        </tr>
-        <tr class="detalle banano-detalle">
-          <td class="indent-4">PORVENIR</td>
-          <td>134,672</td>
-          <td>$ 926,222.99</td>
-          <td></td><td></td>
-        </tr>
-        <tr class="detalle banano-detalle">
-          <td class="indent-4">ESPERANZA</td>
-          <td>57,187</td>
-          <td>$ 471,388.79</td>
-          <td></td><td></td>
-        </tr>
-        <tr class="detalle banano-detalle">
-          <td class="indent-4">EL CISNE</td>
-          <td>21,565</td>
-          <td>$ 187,792.81</td>
-          <td></td><td></td>
-        </tr>
-        <tr class="detalle banano-detalle">
-          <td class="indent-4">VAQUERIA</td>
-          <td>25,230</td>
-          <td>$ 232,518.53</td>
-          <td></td><td></td>
-        </tr>
-        <tr class="detalle banano-detalle">
-          <td class="indent-4">ESTRELLITA</td>
-          <td>26,177</td>
-          <td>$ 212,507.42</td>
-          <td></td><td></td>
-        </tr>
-        <tr class="detalle banano-detalle">
-          <td class="indent-4">PRIMAVERA</td>
-          <td>52,620</td>
-          <td>$ 745,361.55</td>
-          <td></td><td></td>
-        </tr>
-        <tr class="detalle banano-detalle total">
-          <td class="indent-3">TOTAL BANANO (ORO)</td>
-          <td>682,742</td>
-          <td>$ 5,163,729.26</td>
-          <td></td><td></td>
-        </tr>
+  <!-- Footer ligero -->
+  <footer class="app-footer">
+    <button id="todayBtn" class="today-btn">Hoy</button>
+  </footer>
 
-        <!-- PLATANO -->
-        <tr class="subgrupo fruta" data-group="platano">
-          <td class="indent-2"><span class="toggle">+</span> PLÁTANO</td>
-          <td></td><td></td><td></td><td></td>
-        </tr>
-        <tr class="detalle platano">
-          <td class="indent-3">ONAHOUSE</td>
-          <td>0</td>
-          <td>$ 45.50</td>
-          <td></td><td></td>
-        </tr>
-        <tr class="detalle platano">
-          <td class="indent-3">KAROLAY</td>
-          <td>0</td>
-          <td>$ 3,850.00</td>
-          <td></td><td></td>
-        </tr>
-        <tr class="detalle platano total">
-          <td class="indent-2">TOTAL PLÁTANO</td>
-          <td>0</td>
-          <td>$ 3,895.50</td>
-          <td></td><td></td>
-        </tr>
-
-        <!-- CACAO -->
-        <tr class="subgrupo fruta" data-group="cacao">
-          <td class="indent-2"><span class="toggle">+</span> CACAO</td>
-          <td></td><td></td><td></td><td></td>
-        </tr>
-        <tr class="detalle cacao">
-          <td class="indent-3">ONAHOUSE</td>
-          <td>0</td>
-          <td>$ 41,058.86</td>
-          <td></td><td></td>
-        </tr>
-        <tr class="detalle cacao">
-          <td class="indent-3">KAROLAY</td>
-          <td>0</td>
-          <td>$ 418.00</td>
-          <td></td><td></td>
-        </tr>
-        <tr class="detalle cacao total">
-          <td class="indent-2">TOTAL CACAO</td>
-          <td>0</td>
-          <td>$ 41,476.86</td>
-          <td></td><td></td>
-        </tr>
-
-        <!-- NARANJA -->
-        <tr class="subgrupo fruta" data-group="naranja">
-          <td class="indent-2"><span class="toggle">+</span> NARANJA</td>
-          <td></td><td></td><td></td><td></td>
-        </tr>
-        <tr class="detalle naranja">
-          <td class="indent-3">ONAHOUSE</td>
-          <td>0</td>
-          <td>$ 90.00</td>
-          <td></td><td></td>
-        </tr>
-        <tr class="detalle naranja">
-          <td class="indent-3">KAROLAY</td>
-          <td>0</td>
-          <td>$ 2,275.00</td>
-          <td></td><td></td>
-        </tr>
-        <tr class="detalle naranja total">
-          <td class="indent-2">TOTAL NARANJA</td>
-          <td>0</td>
-          <td>$ 2,365.00</td>
-          <td></td><td></td>
-        </tr>
-
-        <!-- LIMON -->
-        <tr class="subgrupo fruta" data-group="limon">
-          <td class="indent-2"><span class="toggle">+</span> LIMÓN</td>
-          <td></td><td></td><td></td><td></td>
-        </tr>
-        <tr class="detalle limon">
-          <td class="indent-3">ONAHOUSE</td>
-          <td>0</td>
-          <td>$ 3,445.00</td>
-          <td></td><td></td>
-        </tr>
-        <tr class="detalle limon">
-          <td class="indent-3">KAROLAY</td>
-          <td>0</td>
-          <td>$ 7,099.00</td>
-          <td></td><td></td>
-        </tr>
-        <tr class="detalle limon total">
-          <td class="indent-2">TOTAL LIMÓN</td>
-          <td>0</td>
-          <td>$ 10,544.00</td>
-          <td></td><td></td>
-        </tr>
-
-        <!-- ZONA PENINSULA -->
-        <tr class="subgrupo zona-oro" data-group="peninsula">
-          <td class="indent"><span class="toggle">+</span> ZONA PENÍNSULA</td>
-          <td></td><td></td><td></td><td></td>
-        </tr>
-        <tr class="subgrupo peninsula" data-group="banano-pen">
-          <td class="indent-2"><span class="toggle">+</span> BANANO</td>
-          <td></td><td></td><td></td><td></td>
-        </tr>
-        <tr class="detalle banano-pen">
-          <td class="indent-3">AGRO&SOL</td>
-          <td>288,650</td>
-          <td>$ 2,398,987.45</td>
-          <td></td><td></td>
-        </tr>
-        <tr class="detalle banano-pen total">
-          <td class="indent-2">TOTAL BANANO (PEN)</td>
-          <td>288,650</td>
-          <td>$ 2,398,987.45</td>
-          <td></td><td></td>
-        </tr>
-
-        <!-- OTROS INGRESOS -->
-        <tr class="subgrupo zona-oro" data-group="otros">
-          <td class="indent"><span class="toggle">+</span> OTROS INGRESOS</td>
-          <td></td><td></td><td></td><td></td>
-        </tr>
-        <tr class="subgrupo otros" data-group="carbon">
-          <td class="indent-2"><span class="toggle">+</span> CARBÓN</td>
-          <td></td><td></td><td></td><td></td>
-        </tr>
-        <tr class="detalle carbon">
-          <td class="indent-3">ONAHOUSE</td>
-          <td>0</td>
-          <td>$ 978.00</td>
-          <td></td><td></td>
-        </tr>
-        <tr class="detalle carbon total">
-          <td class="indent-2">TOTAL CARBÓN</td>
-          <td>0</td>
-          <td>$ 978.00</td>
-          <td></td><td></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <script src="script.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
-
