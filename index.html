@@ -1,78 +1,104 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-  <title>Calendario — Demo</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <title>Replica macOS Calendar - Lista de Tareas</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
-  <!-- Barra superior estilo iOS -->
-  <header class="app-bar">
-    <button id="backBtn" class="back-btn" aria-label="Atrás" hidden>
-      <span class="chev">‹</span> Atrás
-    </button>
-    <h1 id="appTitle" class="title">Calendario</h1>
-    <div class="spacer"></div>
-  </header>
+  <div class="window">
+    <!-- Barra superior -->
+    <div class="titlebar">
+      <div class="traffic-lights">
+        <span class="red"></span>
+        <span class="yellow"></span>
+        <span class="green"></span>
+      </div>
+      <div class="view-buttons">
+        <button>Day</button>
+        <button>Week</button>
+        <button>Month</button>
+        <button>Year</button>
+      </div>
+      <input class="search" type="text" placeholder="Buscar..">
+    </div>
 
-  <!-- Contenedor de vistas apiladas -->
-  <main id="views">
-    <!-- Vista: AÑO -->
-    <section id="yearView" class="view active" aria-label="Vista anual">
-      <div class="year-header">
-        <button id="prevYear" class="nav-btn" aria-label="Año anterior">‹</button>
-        <h2 id="yearLabel"></h2>
-        <button id="nextYear" class="nav-btn" aria-label="Año siguiente">›</button>
-      </div>
-      <div id="monthsGrid" class="months-grid"></div>
-    </section>
+    <div class="content">
+      <!-- PANEL IZQUIERDO (Lista tareas) -->
+      <aside class="left-panel">
+        <div class="date-header">
+          <h1 id="current-date">June 10, <span>2024</span></h1>
+          <p id="current-day">Monday</p>
+        </div>
 
-    <!-- Vista: MES -->
-    <section id="monthView" class="view" aria-label="Vista mensual">
-      <div class="month-header">
-        <button id="prevMonth" class="nav-btn" aria-label="Mes anterior">‹</button>
-        <h2 id="monthLabel"></h2>
-        <button id="nextMonth" class="nav-btn" aria-label="Mes siguiente">›</button>
-      </div>
-      <div class="weekdays">
-        <span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span>Sáb</span><span>Dom</span>
-      </div>
-      <div id="daysGrid" class="days-grid"></div>
-    </section>
+        <div class="tasks-header">
+          <h2>Tareas</h2>
+          <div class="tasks-controls">
+            <button class="add-task">+</button>
+            <button class="filter-priority" title="Ver solo prioridades">★</button>
 
-    <!-- Vista: DÍA -->
-    <section id="dayView" class="view" aria-label="Vista diaria">
-      <div class="day-header">
-        <h2 id="dayLabel"></h2>
-      </div>
-      <ul id="tasksList" class="tasks-list">
-        <!-- Ejemplo de tarea expandible -->
-        <li class="task-item">
-          <div class="task-main">
-            <span class="task-time">08:00</span>
-            <span class="task-title">Reunión</span>
-            <button class="task-expand">+</button>
+            <!-- Botón de filtro avanzado -->
+            <div class="filter-dropdown">
+                <button class="filter-btn">
+                    <img src="img/filtro.png" alt="Filtro" />
+                </button>
+                <ul class="filter-menu">
+                    <li data-filter="all">Todas</li>
+                    <li data-filter="priority-high">Rojo</li>
+                    <li data-filter="priority-medium">Amarillo</li>
+                    <li data-filter="gray">Gris</li>
+                    <li data-filter="completed">Completadas</li>
+                </ul>
+                </div>
+                </div>
+                </div>
+
+        <ul class="task-list">
+          <li class="task gray"><span class="task-text">TAREA DE PRUEBA</span><span class="task-date">10/06/2024 08:00</span></li>
+        </ul>
+
+      </aside>
+
+      <!-- PANEL DERECHO -->
+      <aside class="right-panel">
+        <!-- Mini calendario -->
+        <div class="mini-calendar">
+          <div class="calendar-header">
+            <button class="arrow">&lt;</button>
+            <button class="today-btn">Today</button>
+            <button class="arrow">&gt;</button>
           </div>
-          <div class="task-details">
-            <input type="text" placeholder="Empresa">
-            <input type="text" placeholder="Participantes">
-            <input type="text" placeholder="Programado para">
-            <div style="display:flex; gap:6px;">
-              <button class="save-btn">Guardar</button>
-              <button class="delete-btn">Eliminar</button>
-            </div>
+          <div class="days">
+            <div>S</div><div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div>
+            <div class="prev">26</div><div class="prev">27</div><div class="prev">28</div><div class="prev">29</div><div class="prev">30</div><div class="prev">31</div><div>1</div>
+            <div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div>
+            <div>9</div><div class="today">10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div>
+            <div>16</div><div>17</div><div>18</div><div>19</div><div>20</div><div>21</div><div>22</div>
+            <div>23</div><div>24</div><div>25</div><div>26</div><div>27</div><div>28</div><div>29</div>
+            <div>30</div><div class="next">1</div><div class="next">2</div><div class="next">3</div><div class="next">4</div><div class="next">5</div><div class="next">6</div>
           </div>
-        </li>
-      </ul>
-    </section>
-  </main>
+        </div>
 
-  <!-- Footer ligero -->
-  <footer class="app-footer">
-    <button id="todayBtn" class="today-btn">Hoy</button>
-  </footer>
-
-  <script src="app.js"></script>
+        <!-- Detalle de tarea -->
+        <div class="task-detail">
+          <h3>Preparar agenda para mañana</h3>
+          <div class="detail-section">
+            <label>remind me</label>
+            <p>On a Day – 06/10/2024</p>
+            <p>At a Time – 6:40 PM</p>
+          </div>
+          <div class="detail-section">
+            <label>priority</label>
+            <p>Medium</p>
+          </div>
+          <div class="detail-section">
+            <label>repeat</label>
+            <p>Never</p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
 </body>
 </html>
